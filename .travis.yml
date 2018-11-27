@@ -45,6 +45,17 @@ matrix:
           sources:
             - ubuntu-toolchain-r-test
           packages:
+            - gcc-7
+            - g++-7
+        artifacts: true
+      env:
+        - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
+    - compiler: gcc
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
             - gcc-8
             - g++-8
         artifacts: true
