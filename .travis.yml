@@ -10,6 +10,16 @@ matrix:
       addons:
         apt:
           sources:
+            - llvm-toolchain-trusty-3.9
+          packages:
+            - clang-3.9
+        artifacts: true
+      env:
+        - MATRIX_EVAL="CC=clang-3.9 && CXX=clang++-3.9"
+    - compiler: clang
+      addons:
+        apt:
+          sources:
             - llvm-toolchain-trusty-4.0
           packages:
             - clang-4.0
