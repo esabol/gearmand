@@ -26,6 +26,11 @@ matrix:
         artifacts: true
       env:
         - MATRIX_EVAL="CC=clang-5.0 && CXX=clang++-5.0"
+      script:
+        - ./bootstrap.sh -a
+        - ./configure --enable-ssl
+        - scan-build --status-bugs --use-cc=clang-5.0 make  
+        - make test
     - compiler: gcc
       addons:
         apt:
