@@ -28,10 +28,10 @@ matrix:
         - MATRIX_EVAL="CC=clang-5.0 && CXX=clang++-5.0"
       script:
         - ./bootstrap.sh -a
-        - scan-build --status-bugs --use-cc="${CC}" --use-c++="${CXX}" ./configure --enable-ssl
-        - scan-build --status-bugs --use-cc="${CC}" --use-c++="${CXX}" make  
+        - scan-build -v --use-cc="${CC}" --use-c++="${CXX}" ./configure --enable-ssl
+        - scan-build -v --use-cc="${CC}" --use-c++="${CXX}" make  
         - travis_fold start "after_analyzer"
-        - cat /tmp/scan-build-*
+        - cat /tmp/scan-build-*/*
         - travis_fold end "after_analyzer"
         - make test
     - compiler: gcc
