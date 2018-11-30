@@ -28,8 +28,8 @@ matrix:
         - MATRIX_EVAL="CC=clang-5.0 && CXX=clang++-5.0"
       script:
         - ./bootstrap.sh -a
-        - scan-build --use-cc="${CC}" --use-c++="${CXX}" -enable-checker core -enable-checker unix -enable-checker cplusplus -enable-checker security -v -o scan_build_report ./configure --enable-ssl
-        - scan-build --use-cc="${CC}" --use-c++="${CXX}" -enable-checker core -enable-checker unix -enable-checker cplusplus -enable-checker security -v -o scan_build_report make  
+        - scan-build --use-cc="/usr/bin/${CC}" --use-c++="/usr/bin/${CXX}" -enable-checker core -enable-checker unix -enable-checker cplusplus -enable-checker security -v -o scan_build_report ./configure --enable-ssl
+        - scan-build --use-cc="/usr/bin/${CC}" --use-c++="/usr/bin/${CXX}" -enable-checker core -enable-checker unix -enable-checker cplusplus -enable-checker security -v -o scan_build_report make  
         - make test
     - compiler: gcc
       addons:
