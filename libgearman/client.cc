@@ -366,6 +366,9 @@ gearman_client_options_t gearman_client_options(const gearman_client_st *client_
     if (client->options.non_blocking)
       options|= int(GEARMAN_CLIENT_NON_BLOCKING);
 
+    if (client->universal.is_stop_wait_on_signal())
+      options|= int(GEARMAN_CLIENT_STOP_WAIT_ON_SIGNAL);
+
     if (client->options.unbuffered_result)
       options|= int(GEARMAN_CLIENT_UNBUFFERED_RESULT);
 
@@ -402,6 +405,9 @@ bool gearman_client_has_option(gearman_client_st *client_shell,
     case GEARMAN_CLIENT_NON_BLOCKING:
       return client->options.non_blocking;
 
+    case GEARMAN_CLIENT_STOP_WAIT_ON_SIGNAL:
+      return client->universal.is_stop_wait_on_signal();
+
     case GEARMAN_CLIENT_UNBUFFERED_RESULT:
       return client->options.unbuffered_result;
 
@@ -437,6 +443,7 @@ void gearman_client_set_options(gearman_client_st *client_shell,
   {
     gearman_client_options_t usable_options[]= {
       GEARMAN_CLIENT_NON_BLOCKING,
+      GEARMAN_CLIENT_STOP_WAIT_ON_SIGNAL,
       GEARMAN_CLIENT_UNBUFFERED_RESULT,
       GEARMAN_CLIENT_FREE_TASKS,
       GEARMAN_CLIENT_GENERATE_UNIQUE,
@@ -469,6 +476,11 @@ void gearman_client_add_options(gearman_client_st *client_shell,
     {
       gearman_universal_add_options(client->universal, GEARMAN_UNIVERSAL_NON_BLOCKING);
       client->options.non_blocking= true;
+    }
+
+    if (options & GEARMAN_CLIENT_STOP_WAIT_ON_SIGNAL)
+    {
+      gearman_universal_add_options(client->universal, GEARMAN_UNIVERSAL_STOP_WAIT_ON_SIGNAL);
     }
 
     if (options & GEARMAN_CLIENT_UNBUFFERED_RESULT)
@@ -509,6 +521,11 @@ void gearman_client_remove_options(gearman_client_st *client_shell,
     {
       gearman_universal_remove_options(client->universal, GEARMAN_UNIVERSAL_NON_BLOCKING);
       client->options.non_blocking= false;
+    }
+
+    if (options & GEARMAN_CLIENT_STOP_WAIT_ON_SIGNAL)
+    {
+      gearman_universal_remove_options(client->universal, GEARMAN_UNIVERSAL_STOP_WAIT_ON_SIGNAL);
     }
 
     if (options & GEARMAN_CLIENT_UNBUFFERED_RESULT)
