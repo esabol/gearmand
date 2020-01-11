@@ -140,7 +140,7 @@ bool has_mysqld()
   return false;
 }
 
-static char memcached_binary_path[FILENAME_MAX];
+static char memcached_binary_path[FILENAME_MAX +1]= { 0 };
 
 static void initialize_memcached_binary_path()
 {
@@ -162,7 +162,6 @@ static void initialize_memcached_binary_path()
     if (access(arg_buffer.str().c_str(), X_OK) == 0)
     {
       strncpy(memcached_binary_path, arg_buffer.str().c_str(), FILENAME_MAX);
-      memcached_binary_path[sizeof memcached_binary_path -1] = '\0';
     }
   }
 #endif
