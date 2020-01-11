@@ -162,6 +162,7 @@ static void initialize_memcached_binary_path()
     if (access(arg_buffer.str().c_str(), X_OK) == 0)
     {
       strncpy(memcached_binary_path, arg_buffer.str().c_str(), FILENAME_MAX);
+      memcached_binary_path[sizeof memcached_binary_path -1] = '\0';
     }
   }
 #endif
