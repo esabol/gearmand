@@ -56,6 +56,18 @@ matrix:
         artifacts: true
       env:
         - MATRIX_EVAL="CC=clang-8 && CXX=clang++-8"
+    - compiler: clang
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+	    - sourceline: 'deb https://apt.llvm.org/xenial/ llvm-toolchain-xenial-9 main'
+	     key_url: 'https://apt.llvm.org/llvm-snapshot.gpg.key'
+          packages:
+            - clang-9
+        artifacts: true
+      env:
+        - MATRIX_EVAL="CC=clang-9 && CXX=clang++-9"
     - compiler: gcc
       dist: trusty
       addons:
