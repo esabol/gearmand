@@ -111,7 +111,7 @@ jobs:
            sudo apt-add-repository ${{ matrix.config.toolchain }}
            sudo apt-get update
            sudo apt-get -y install libtool
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
     - name: set ownership of git repository in Docker containers
       if: matrix.config.container != ''
       run: |
@@ -171,7 +171,7 @@ jobs:
            ${CC} --version && make
       shell: bash
     - name: make test
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:
         timeout_minutes: 10
         max_attempts: 4
