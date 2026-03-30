@@ -188,20 +188,18 @@ gearman_packet_st *gearman_packet_create(gearman_universal_st &universal,
 
   // dont_track_packets == false
   {
-    if (universal.packet_list == nullptr)
+    packet.next = nullptr;
+    packet.prev = universal.packet_list_tail;
+
+    if (universal.packet_list_tail != nullptr)
     {
-      universal.packet_list= &packet;
+      universal.packet_list_tail->next= &packet;
     }
     else
     {
-      gearman_packet_st *tail= universal.packet_list;
-      while (tail->next != nullptr)
-      {
-	tail= tail->next;
-      }
-      tail->next= &packet;
-      packet.prev= tail;
+      universal.packet_list= &packet;    // first packet
     }
+    universal.packet_list_tail= &packet;
     universal.packet_count++;
   }
 
@@ -556,6 +554,11 @@ void gearman_packet_st::reset()
     if (universal->packet_list == this)
     {
       universal->packet_list= next;
+    }
+
+    if (universal->packet_list_tail == this)
+    {
+      universal->packet_list_tail= prev;
     }
 
     if (prev)
