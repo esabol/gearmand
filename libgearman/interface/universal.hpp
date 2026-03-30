@@ -93,6 +93,7 @@ struct gearman_universal_st : public error_st
   gearman_connection_st *con_list;
   gearman_server_options_st *server_options_list;
   gearman_packet_st *packet_list;
+  gearman_packet_st *packet_list_tail;
   struct pollfd *pfds;
   gearman_log_fn *log_fn;
   void *log_context;
@@ -190,6 +191,7 @@ struct gearman_universal_st : public error_st
     con_list(nullptr),
     server_options_list(nullptr),
     packet_list(nullptr),
+    packet_list_tail(nullptr),
     pfds(nullptr),
     log_fn(nullptr),
     log_context(nullptr),
