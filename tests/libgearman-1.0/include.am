@@ -72,8 +72,8 @@ t_internals_LDADD+= libgearman/libgearmancore.la
 check_PROGRAMS+= t/internals
 noinst_PROGRAMS+= t/internals
 
-t_worker_LDADD=
 t_worker_SOURCES=
+t_worker_LDADD=
 
 t_worker_SOURCES+= libgearman/command.cc
 t_worker_SOURCES+= tests/libgearman-1.0/worker_test.cc
@@ -94,7 +94,6 @@ gdb-internals: t/internals gearmand/gearmand
 
 helgrind-internals: t/internals gearmand/gearmand
 	@$(HELGRIND_COMMAND) t/internals
-
 
 valgrind-internals: t/internals gearmand/gearmand
 	@$(VALGRIND_COMMAND) t/internals
@@ -133,3 +132,22 @@ noinst_PROGRAMS+= t/1077917
 
 valgrind-1077917: t/1077917
 	@$(VALGRIND_COMMAND) --leak-check=full --show-reachable=yes --track-origins=yes t/1077917
+
+t_fifo_SOURCES=
+t_fifo_LDADD=
+t_fifo_CXXFLAGS=
+t_fifo_SOURCES+= tests/libgearman-1.0/fifo.cc
+t_fifo_LDADD+= ${LIBGEARMAN_1_0_CLIENT_LDADD}
+t_fifo_LDADD+= @PTHREAD_LIBS@
+t_fifo_CXXFLAGS+= @PTHREAD_CFLAGS@
+check_PROGRAMS+=t/fifo
+noinst_PROGRAMS+=t/fifo
+
+test-fifo: t/fifo gearmand/gearmand
+	@t/fifo
+
+gdb-fifo: t/fifo gearmand/gearmand
+	@$(GDB_COMMAND) t/fifo
+
+valgrind-fifo: t/fifo gearmand/gearmand
+	@$(VALGRIND_COMMAND) t/fifo
