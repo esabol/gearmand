@@ -72,6 +72,15 @@ t_internals_LDADD+= libgearman/libgearmancore.la
 check_PROGRAMS+= t/internals
 noinst_PROGRAMS+= t/internals
 
+t_signal_wait_SOURCES=
+t_signal_wait_LDADD=
+
+t_signal_wait_SOURCES+= tests/libgearman-1.0/signal_wait_test.cc
+t_signal_wait_LDADD+= ${LIBGEARMAN_1_0_CLIENT_LDADD}
+t_signal_wait_LDADD+= libgearman/libgearmancore.la
+check_PROGRAMS+= t/signal_wait
+noinst_PROGRAMS+= t/signal_wait
+
 t_worker_LDADD=
 t_worker_SOURCES=
 
@@ -92,12 +101,21 @@ test-internals: t/internals gearmand/gearmand
 gdb-internals: t/internals gearmand/gearmand
 	@$(GDB_COMMAND) t/internals
 
+test-signal-wait: t/signal_wait
+	@t/signal_wait
+
+gdb-signal-wait: t/signal_wait
+	@$(GDB_COMMAND) t/signal_wait
+
 helgrind-internals: t/internals gearmand/gearmand
 	@$(HELGRIND_COMMAND) t/internals
 
 
 valgrind-internals: t/internals gearmand/gearmand
 	@$(VALGRIND_COMMAND) t/internals
+
+valgrind-signal-wait: t/signal_wait
+	@$(VALGRIND_COMMAND) t/signal_wait
 
 valgrind-worker: t/worker gearmand/gearmand
 	@$(VALGRIND_COMMAND) t/worker

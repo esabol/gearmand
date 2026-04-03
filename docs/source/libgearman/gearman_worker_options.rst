@@ -36,6 +36,11 @@ The currently supported options are:
 
 Enable non-block IO for the worker.
 
+.. c:type:: GEARMAN_WORKER_STOP_WAIT_ON_SIGNAL
+
+Return :c:type:`GEARMAN_IO_WAIT` from :c:func:`gearman_wait` when a signal
+interrupts the wait.
+
 .. c:type:: GEARMAN_WORKER_GRAB_UNIQ
 
 Only grab jobs that have been assigned unique values. This is useful for workers who only want to worker with background jobs.
@@ -60,4 +65,3 @@ To find out more information please check:
 .. seealso::
 
   :manpage:`gearmand(8)` :manpage:`libgearman(3)`
-
