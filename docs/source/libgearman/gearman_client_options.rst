@@ -39,6 +39,11 @@ The currently supported options are:
 
 Run the cient in a non-blocking mode.
 
+.. c:type:: GEARMAN_CLIENT_STOP_WAIT_ON_SIGNAL
+
+Return :c:type:`GEARMAN_IO_WAIT` from :c:func:`gearman_wait` when a signal
+interrupts the wait.
+
 .. c:type:: GEARMAN_CLIENT_FREE_TASKS
 
 Automatically free task objects once they are complete.
@@ -67,4 +72,3 @@ To find out more information please check:
 
 .. seealso::
   :manpage:`gearmand(8)` :manpage:`libgearman(3)`
-

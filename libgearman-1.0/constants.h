@@ -113,7 +113,8 @@ typedef enum
   GEARMAN_CLIENT_GENERATE_UNIQUE=   (1 << 6),
   GEARMAN_CLIENT_EXCEPTION=         (1 << 7),
   GEARMAN_CLIENT_SSL=               (1 << 8),
-  GEARMAN_CLIENT_MAX=               (1 << 9)
+  GEARMAN_CLIENT_MAX=               (1 << 9),
+  GEARMAN_CLIENT_STOP_WAIT_ON_SIGNAL= (1 << 10)
 } gearman_client_options_t;
 
 /**
@@ -134,7 +135,8 @@ typedef enum
   GEARMAN_WORKER_GRAB_ALL=         (1 << 9),
   GEARMAN_WORKER_SSL=              (1 << 10),
   GEARMAN_WORKER_IDENTIFIER=       (1 << 11),
-  GEARMAN_WORKER_MAX=   (1 << 12)
+  GEARMAN_WORKER_MAX=   (1 << 12),
+  GEARMAN_WORKER_STOP_WAIT_ON_SIGNAL= (1 << 13)
 } gearman_worker_options_t;
 
 /* Types. */

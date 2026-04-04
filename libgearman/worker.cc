@@ -255,6 +255,8 @@ gearman_worker_options_t gearman_worker_options(const gearman_worker_st *worker_
 
     if (worker->options.non_blocking)
       options|= int(GEARMAN_WORKER_NON_BLOCKING);
+    if (worker->universal.is_stop_wait_on_signal())
+      options|= int(GEARMAN_WORKER_STOP_WAIT_ON_SIGNAL);
     if (worker->options.packet_init)
       options|= int(GEARMAN_WORKER_PACKET_INIT);
     if (worker->options.change)
@@ -283,6 +285,7 @@ void gearman_worker_set_options(gearman_worker_st *worker,
   {
     gearman_worker_options_t usable_options[]= {
       GEARMAN_WORKER_NON_BLOCKING,
+      GEARMAN_WORKER_STOP_WAIT_ON_SIGNAL,
       GEARMAN_WORKER_GRAB_UNIQ,
       GEARMAN_WORKER_GRAB_ALL,
       GEARMAN_WORKER_TIMEOUT_RETURN,
@@ -316,6 +319,11 @@ void gearman_worker_add_options(gearman_worker_st *worker_shell,
     {
       gearman_universal_add_options(worker->universal, GEARMAN_UNIVERSAL_NON_BLOCKING);
       worker->options.non_blocking= true;
+    }
+
+    if (options & GEARMAN_WORKER_STOP_WAIT_ON_SIGNAL)
+    {
+      gearman_universal_add_options(worker->universal, GEARMAN_UNIVERSAL_STOP_WAIT_ON_SIGNAL);
     }
 
     if (options & GEARMAN_WORKER_GRAB_UNIQ)
@@ -367,6 +375,11 @@ void gearman_worker_remove_options(gearman_worker_st *worker_shell,
     {
       gearman_universal_remove_options(worker->universal, GEARMAN_UNIVERSAL_NON_BLOCKING);
       worker->options.non_blocking= false;
+    }
+
+    if (options & GEARMAN_WORKER_STOP_WAIT_ON_SIGNAL)
+    {
+      gearman_universal_remove_options(worker->universal, GEARMAN_UNIVERSAL_STOP_WAIT_ON_SIGNAL);
     }
 
     if (options & GEARMAN_WORKER_TIMEOUT_RETURN)
