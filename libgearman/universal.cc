@@ -761,9 +761,9 @@ gearman_return_t cancel_job(gearman_universal_st& universal,
 
 void gearman_free_all_packets(gearman_universal_st &universal)
 {
-  while (universal.packet_list)
+  while (universal.packet_list_tail)
   {
-    gearman_packet_free(universal.packet_list);
+    gearman_packet_free(universal.packet_list_tail);
   }
 }
 
