@@ -627,7 +627,7 @@ static gearman_return_t connection_loop(gearman_universal_st& universal,
     {
       if (ret != GEARMAN_NOT_CONNECTED and ret != GEARMAN_LOST_CONNECTION)
       {
-        assert(&con->_packet == universal.packet_list_tail); // TODO: Should this be packet_list_tail? I think so.
+        assert(&con->_packet == universal.packet_list); // TODO: Should this be packet_list_tail? I think so.
       }
       con->options.packet_in_use= false;
       break;
