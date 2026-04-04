@@ -574,12 +574,6 @@ void gearman_packet_st::reset()
     universal->packet_count--;
   }
 
-  // If list is now empty, ensure both pointers are NULL
-  if (universal->packet_list == nullptr)
-  {
-    universal->packet_list_tail= nullptr;
-  }
-
   options.complete= false;
   options.free_data= false;
   magic= GEARMAN_MAGIC_TEXT;
