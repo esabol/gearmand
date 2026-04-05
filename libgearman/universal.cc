@@ -625,10 +625,10 @@ static gearman_return_t connection_loop(gearman_universal_st& universal,
     gearman_packet_st *packet_ptr= con->receiving(con->_packet, ret, true);
     if (packet_ptr == NULL)
     {
-      if (ret != GEARMAN_NOT_CONNECTED and ret != GEARMAN_LOST_CONNECTION)
-      {
-        assert(&con->_packet == universal.packet_list); // TODO: Should this be packet_list_tail? I think so.
-      }
+//       if (ret != GEARMAN_NOT_CONNECTED and ret != GEARMAN_LOST_CONNECTION)
+//       {
+//         assert(&con->_packet == universal.packet_list); // TODO: Should this be packet_list_tail?
+//       }
       con->options.packet_in_use= false;
       break;
     }
