@@ -571,6 +571,11 @@ void gearman_packet_st::reset()
       next->prev= prev;
     }
 
+    if (universal->packet_list == nullptr)
+    {
+      universal->packet_list_tail = nullptr;
+    }
+
     universal->packet_count--;
   }
 
