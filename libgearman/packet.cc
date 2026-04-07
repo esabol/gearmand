@@ -549,32 +549,58 @@ void gearman_packet_st::reset()
 
   free__data();
 
-  if (universal and universal->packet_list)
+  if (universal)
   {
-    if (universal->packet_list == this)
+    gearman_packet_st *p = this->prev;
+    gearman_packet_st *n = this->next;
+
+    if (p == nullptr)
     {
-      universal->packet_list= next;
+      universal->packet_list = n;      // removing head (or only packet)
+    }
+    else
+    {
+      p->next = n;
     }
 
-    if (universal->packet_list_tail == this)
+    if (n == nullptr)
     {
-      universal->packet_list_tail= prev;
+      universal->packet_list_tail = p; // removing tail (or only packet)
     }
-
-    if (prev)
+    else
     {
-      prev->next= next;
-    }
-
-    if (next)
-    {
-      next->prev= prev;
+      n->prev = p;
     }
 
     if (universal->packet_list == nullptr)
     {
       universal->packet_list_tail = nullptr;
     }
+
+//     if (universal->packet_list == this)
+//     {
+//       universal->packet_list= next;
+//     }
+
+//     if (universal->packet_list_tail == this)
+//     {
+//       universal->packet_list_tail= prev;
+//     }
+
+//     if (prev)
+//     {
+//       prev->next= next;
+//     }
+
+//     if (next)
+//     {
+//       next->prev= prev;
+//     }
+
+//     if (universal->packet_list == nullptr)
+//     {
+//       universal->packet_list_tail = nullptr;
+//     }
 
     universal->packet_count--;
   }
